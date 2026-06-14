@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\DELL\\\\Desktop\" -Recurse -ErrorAction SilentlyContinue | Select-Object FullName | Where-Object { $_.FullName -match \"usama\" })"
+    ]
+  }
+}
