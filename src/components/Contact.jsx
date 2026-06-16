@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-// TODO(usama): confirm the public email you want to show.
 const EMAIL = 'usamakhalid.work@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/usama-khalid-90a15b204'
 const GITHUB = 'https://github.com/Usaamakhalid123'
