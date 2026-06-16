@@ -15,6 +15,7 @@ export function useSmoothScroll(enabled = true) {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     })
+    window.__lenis = lenis
 
     lenis.on('scroll', ScrollTrigger.update)
 
@@ -27,6 +28,7 @@ export function useSmoothScroll(enabled = true) {
     return () => {
       gsap.ticker.remove(raf)
       lenis.destroy()
+      window.__lenis = null
     }
   }, [enabled])
 }
