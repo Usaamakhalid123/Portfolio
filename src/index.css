@@ -312,12 +312,30 @@ h3 {
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
+    align-content: center;
+    gap: clamp(1.5rem, 5vh, 3rem);
   }
   .hero-content {
     max-width: 100%;
   }
   .hero-visual {
+    height: clamp(300px, 62vw, 440px);
+  }
+}
+/* Phones: icon-only badges so they don't overlap on the smaller circle */
+@media (max-width: 560px) {
+  .techstack {
+    --orbit-r: clamp(100px, 32vw, 150px);
+  }
+  .tech-badge-inner span {
     display: none;
+  }
+  .tech-badge-inner {
+    padding: 0.5rem;
+  }
+  .tech-badge-inner img {
+    width: 24px;
+    height: 24px;
   }
 }
 
