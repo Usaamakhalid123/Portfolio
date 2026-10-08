@@ -10,7 +10,11 @@ export function useScrollManager(ready, location) {
       const el = document.querySelector(location.hash)
       if (el) {
         const id = setTimeout(() => {
-          if (lenis) lenis.scrollTo(el, { offset: -80 })
+          if (lenis) lenis.scrollTo(el, {
+            offset: -80,
+            duration: 1.6,
+            easing: (t) => 1 - Math.pow(1 - t, 4),
+          })
           else el.scrollIntoView({ behavior: 'smooth' })
         }, 80)
         return () => clearTimeout(id)

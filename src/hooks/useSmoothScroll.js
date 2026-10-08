@@ -13,8 +13,8 @@ export function useSmoothScroll(enabled = true) {
     if (!enabled || prefersReducedMotion()) return
 
     const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.075, // lower = floatier, more inertia
+      wheelMultiplier: 0.9,
       smoothWheel: true,
     })
     window.__lenis = lenis

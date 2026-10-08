@@ -62,7 +62,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section className="section" id="services">
+    <section className="section dark" id="services">
       <div className="section-head">
         <div>
           <span className="eyebrow reveal">Services</span>

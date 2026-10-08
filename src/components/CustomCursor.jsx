@@ -23,8 +23,8 @@ export default function CustomCursor() {
     }
 
     const loop = () => {
-      ringPos.x += (pos.x - ringPos.x) * 0.18
-      ringPos.y += (pos.y - ringPos.y) * 0.18
+      ringPos.x += (pos.x - ringPos.x) * 0.12
+      ringPos.y += (pos.y - ringPos.y) * 0.12
       if (ring.current) {
         ring.current.style.transform = `translate3d(${ringPos.x}px, ${ringPos.y}px, 0) translate(-50%, -50%)`
       }

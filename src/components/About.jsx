@@ -1,19 +1,21 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
-import SceneBoundary from './SceneBoundary'
+import { useEffect, useRef, useState } from 'react'
 import Tilt from './Tilt'
 import { prefersReducedMotion } from '../hooks/reducedMotion'
 
-const ShowcaseScene = lazy(() => import('../three/ShowcaseScene'))
-
-const stats = [
-  { num: 40, suffix: '+', label: 'Projects shipped' },
-  { num: 3, suffix: '+', label: 'Years experience' },
-  { num: 4, suffix: '', label: 'Countries served' },
+const TECH = [
+  ['react', 'React'],
+  ['nextdotjs', 'Next.js'],
+  ['typescript', 'TypeScript'],
+  ['nodedotjs', 'Node.js'],
+  ['mongodb', 'MongoDB'],
+  ['wordpress', 'WordPress'],
+  ['shopify', 'Shopify'],
+  ['tailwindcss', 'Tailwind'],
 ]
 
 // Counts up once when scrolled into view; shows the final value immediately
 // for reduced-motion visitors or if IntersectionObserver is unavailable.
-function CountUp({ to, suffix }) {
+function CountUp({ to, suffix = '' }) {
   const ref = useRef()
   const [val, setVal] = useState(prefersReducedMotion() ? to : 0)
 
@@ -28,8 +30,8 @@ function CountUp({ to, suffix }) {
       io.disconnect()
       const start = performance.now()
       const tick = (now) => {
-        const p = Math.min(1, (now - start) / 1400)
-        setVal(Math.round(to * (1 - Math.pow(1 - p, 3))))
+        const p = Math.min(1, (now - start) / 1600)
+        setVal(Math.round(to * (1 - Math.pow(1 - p, 4))))
         if (p < 1) raf = requestAnimationFrame(tick)
       }
       raf = requestAnimationFrame(tick)
@@ -42,7 +44,7 @@ function CountUp({ to, suffix }) {
   }, [to])
 
   return (
-    <span ref={ref} className="stat-num">
+    <span ref={ref} className="bento-num">
       {val}
       {suffix}
     </span>
@@ -74,22 +76,46 @@ export default function About() {
           </div>
         </div>
 
-        <div className="about-visual reveal">
-          <Tilt className="showcase" max={5}>
-            <SceneBoundary>
-              <Suspense fallback={null}>
-                <ShowcaseScene />
-              </Suspense>
-            </SceneBoundary>
-            <div className="stats tilt-layer">
-              {stats.map((s) => (
-                <div className="stat" key={s.label}>
-                  <CountUp to={s.num} suffix={s.suffix} />
-                  <span className="stat-label">{s.label}</span>
-                </div>
-              ))}
-            </div>
-          </Tilt>
+        <div className="bento">
+          <div className="reveal bento-a">
+            <Tilt className="bento-card b-lime" max={5}>
+              <CountUp to={40} suffix="+" />
+              <span className="bento-label">Projects shipped</span>
+            </Tilt>
+          </div>
+          <div className="reveal bento-b">
+            <Tilt className="bento-card b-ink" max={5}>
+              <CountUp to={3} suffix="+" />
+              <span className="bento-label">Years experience</span>
+            </Tilt>
+          </div>
+          <div className="reveal bento-c">
+            <Tilt className="bento-card b-white" max={3}>
+              <span className="bento-label">Tools I build with</span>
+              <ul className="bento-tech">
+                {TECH.map(([icon, name]) => (
+                  <li key={icon}>
+                    <img src={`/icons/${icon}.svg`} alt="" width="18" height="18" />
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </Tilt>
+          </div>
+          <div className="reveal bento-d">
+            <Tilt className="bento-card b-white" max={5}>
+              <CountUp to={4} />
+              <span className="bento-label">Countries served</span>
+            </Tilt>
+          </div>
+          <div className="reveal bento-e">
+            <Tilt className="bento-card b-sand" max={5}>
+              <span className="bento-label">Based between</span>
+              <span className="bento-place">
+                Romford, UK <i aria-hidden="true">↔</i> Lahore, PK
+              </span>
+            </Tilt>
+          </div>
         </div>
       </div>
     </section>

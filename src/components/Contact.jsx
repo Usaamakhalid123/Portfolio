@@ -80,7 +80,7 @@ export default function Contact() {
   }
 
   return (
-    <section className="section contact" id="contact">
+    <section className="section contact dark" id="contact">
       <div className="contact-grid">
         <div className="contact-intro">
           <span className="eyebrow reveal">Let’s talk</span>
