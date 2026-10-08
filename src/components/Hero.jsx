@@ -6,9 +6,9 @@ const WORDS = ['clients.', 'revenue.', 'bookings.', 'growth.']
 
 // Real client sites shown as a floating 3D browser stack.
 const MOCKS = [
-  { cls: 'm1', url: 'thepatternlabs.com', img: '/shots/patternlabs.jpg' },
-  { cls: 'm2', url: 'basehealth.co.uk', img: '/shots/basehealth.jpg' },
-  { cls: 'm3', url: 'khitamhealthhub.com', img: '/shots/khitam.jpg' },
+  { cls: 'm1', url: 'thepatternlabs.com', img: '/shots/patternlabs.webp' },
+  { cls: 'm2', url: 'basehealth.co.uk', img: '/shots/basehealth.webp' },
+  { cls: 'm3', url: 'khitamhealthhub.com', img: '/shots/khitam.webp' },
 ]
 
 function Rotator() {
@@ -148,8 +148,9 @@ export default function Hero() {
 
         <p className="hero-sub">
           I'm Usama, a freelance full-stack developer. I build fast,
-          search-ready websites for clinics, law firms, agencies and online
-          stores — 40+ delivered across the UK, UAE, Pakistan and Australia.
+          search-ready websites, SaaS products, custom software and AI
+          chatbots for clinics, law firms, agencies and startups — 40+
+          delivered across the UK, UAE, Pakistan and Australia.
         </p>
 
         <div className="hero-ctas">

@@ -9,7 +9,6 @@ gsap.registerPlugin(ScrollTrigger)
 // so each page's elements get wired up.
 //  - `.reveal` elements fade/rise in as staggered batches (siblings entering
 //    together cascade instead of popping in one by one)
-//  - project screenshots drift slightly against the scroll (parallax)
 //  - the hero copy eases up and fades as you leave it
 export function useReveal(ready, key) {
   useEffect(() => {
@@ -32,23 +31,6 @@ export function useReveal(ready, key) {
               stagger: 0.1,
               overwrite: true,
             }),
-        })
-
-        gsap.utils.toArray('.work2-thumb img').forEach((img) => {
-          gsap.fromTo(
-            img,
-            { yPercent: -7 },
-            {
-              yPercent: 7,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: img.closest('.work2-thumb'),
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 0.6,
-              },
-            }
-          )
         })
 
         const heroContent = document.querySelector('.hero-content')

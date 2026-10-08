@@ -1,22 +1,23 @@
 # Usama Khalid — Portfolio
 
 A fast, editorial portfolio for **Usama Khalid**, freelance full-stack web developer.
-Warm light theme, multi-page, with real client work and recommendations.
+Warm paper + ink + electric lime, with real client work, testimonials and a lead-capture form.
 
-🔗 **Live:** _add your Vercel URL here_
+🔗 **Live:** _add your URL here and in `site.config.js`_
 
 ## Highlights
 
-- **Multi-page** (React Router): home + a dedicated `/work` page listing all projects
-- **Featured work** on the homepage (4 projects) → CTA to the full grid of 17 live builds, each with a real screenshot
-- **Orbiting tech-stack** ring in the hero (pure CSS — logos circling a dotted path)
-- **Testimonials carousel** — real LinkedIn recommendations, auto-advancing, 2 cards at a time
-- **Lead-capture contact form** — name, email, company, website, country, budget, service chips, message (+ spam honeypot)
-- Smooth scrolling (Lenis), GSAP scroll reveals, custom cursor, film grain
+- **Multi-page** (React Router): home, a `/work` page listing all projects, `/privacy`, and a proper 404
+- **Hero** with a pointer-tilting 3D stack of real client sites
+- **Featured work** on the homepage → full grid of 17 live builds (WebP screenshots, ~40 kB each)
+- **Bento About**, **Process**, dark **Services** panel, **Testimonials** carousel (pausable) and **FAQ**
+- **Contact form** (Formspree) with optional WhatsApp button, spam honeypot and privacy consent line
+- Smooth scrolling (Lenis), GSAP reveals and parallax, custom cursor — all disabled for `prefers-reduced-motion`
+- Accessible by default: skip link, focus styles, labelled form, announced errors, 44px targets
 
 ## Tech stack
 
-React 18 · Vite · React Router · GSAP · Lenis · Fraunces + Inter (Google Fonts)
+React 18 · Vite · React Router · GSAP · Lenis · self-hosted fonts (Bricolage Grotesque + Instrument Sans via Fontsource)
 
 ## Getting started
 
@@ -27,31 +28,25 @@ npm run build    # production build to /dist
 npm run preview  # preview the production build
 ```
 
+## Site settings
+
+Edit **`site.config.js`** and rebuild:
+
+| Setting | What it does |
+| --- | --- |
+| `url` | Live address (no trailing slash). Enables canonical URLs, absolute share-image URLs, `sitemap.xml` and the sitemap line in `robots.txt`. |
+| `whatsapp` | Number with country code, digits only. Shows a "Chat on WhatsApp" button beside the form. |
+| `plausibleDomain` | Domain registered in Plausible. Loads cookie-free analytics. |
+
 ## Editing content
 
-| What | Where |
-| --- | --- |
-| Projects (title, description, link, screenshot) | `src/data/projects.js` |
-| Featured 4 on the homepage | `FEATURED` in `src/components/WorkPreview.jsx` |
-| Testimonials | `src/data/testimonials.js` |
-| Project screenshots | `public/shots/<slug>.jpg` |
-| Tech-stack logos | `public/icons/` |
-| Contact email / socials | top of `src/components/Contact.jsx` |
+- **Projects:** `src/data/projects.js`. Screenshots go in `public/shots/` as ~1000px-wide **WebP**.
+- **Testimonials:** `src/data/testimonials.js`.
+- **Form endpoint:** `FORMSPREE_ENDPOINT` in `src/components/Contact.jsx`.
+- **Share image / icons:** `public/og.png`, `public/icon-*.png`, `public/favicon.svg`.
 
-### Contact form leads
+## Deployment (Vercel)
 
-The form posts to **Formspree**. Create a free form at [formspree.io](https://formspree.io)
-and paste its endpoint into `FORMSPREE_ENDPOINT` in `src/components/Contact.jsx`.
-Until then, the form falls back to opening the visitor's email app addressed to you.
-
-## Deploy (Vercel)
-
-1. Push to GitHub.
-2. On [vercel.com](https://vercel.com): **Add New → Project** → import this repo.
-3. Vercel auto-detects Vite — click **Deploy**.
-
-`vercel.json` includes an SPA rewrite so deep links like `/work` work on refresh.
-
----
-
-Designed & built by Usama Khalid.
+`vercel.json` rewrites unknown routes to the SPA (React renders the 404) and sets security headers
+(CSP, HSTS, frame/referrer/permissions policies) plus long-lived caching for hashed assets.
+If you add a third-party script, allow its origin in the Content-Security-Policy.

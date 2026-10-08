@@ -1,12 +1,14 @@
 const items = [
-  'Custom Web Apps',
+  'SaaS Products',
+  'Custom Software',
+  'AI Chatbots',
+  'Vibe Coding',
   'WordPress',
   'Shopify',
   'MERN Stack',
   'Technical SEO',
   'Core Web Vitals',
   'UI & UX Design',
-  'E-commerce',
 ]
 
 export default function Marquee() {

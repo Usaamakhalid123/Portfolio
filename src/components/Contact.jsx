@@ -1,4 +1,6 @@
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import site from '../../site.config.js'
 
 const EMAIL = 'usamakhalid.work@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/usama-khalid-90a15b204'
@@ -10,12 +12,14 @@ const LINKTREE = 'https://linktr.ee/chusama32'
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeaegrza'
 
 const SERVICES = [
-  'Web Design',
-  'Branding',
-  'Development',
-  'SEO',
-  'Web Application',
+  'Website',
   'E-commerce',
+  'Web Application',
+  'SaaS Product',
+  'Custom Software',
+  'AI Chatbot',
+  'Vibe Coding / MVP',
+  'SEO & Performance',
 ]
 const BUDGETS = [
   'Under £500',
@@ -96,6 +100,18 @@ export default function Contact() {
             <a href={`mailto:${EMAIL}`} data-cursor>
               {EMAIL}
             </a>
+            {site.whatsapp && (
+              <a
+                className="btn btn-primary wa-btn"
+                href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(
+                  'Hi Usama, I found your portfolio and have a project in mind.'
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Chat on WhatsApp
+              </a>
+            )}
             <div className="contact-socials">
               <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">
                 LinkedIn
@@ -107,7 +123,7 @@ export default function Contact() {
                 Linktree
               </a>
             </div>
-            <span className="contact-loc">Romford, UK · Lahore, PK</span>
+            <span className="contact-loc">London, UK · Lahore, PK</span>
           </div>
         </div>
 
@@ -230,7 +246,11 @@ export default function Contact() {
               >
                 {status === 'submitting' ? 'Sending…' : 'Send my enquiry →'}
               </button>
-              <p className="form-note">Takes under a minute. I reply within 24 hours.</p>
+              <p className="form-note">
+                Takes under a minute. I reply within 24 hours and only use your
+                details to respond — see the{' '}
+                <Link to="/privacy">privacy policy</Link>.
+              </p>
 
               {status === 'error' && (
                 <p className="form-error" role="alert">

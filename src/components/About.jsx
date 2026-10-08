@@ -7,6 +7,8 @@ const TECH = [
   ['nextdotjs', 'Next.js'],
   ['typescript', 'TypeScript'],
   ['nodedotjs', 'Node.js'],
+  ['python', 'Python'],
+  ['claude', 'Claude AI'],
   ['mongodb', 'MongoDB'],
   ['wordpress', 'WordPress'],
   ['shopify', 'Shopify'],
@@ -64,14 +66,16 @@ export default function About() {
           <div className="about-body reveal">
             <p>
               I'm Usama Khalid, a freelance full-stack developer split between
-              Romford, UK and Lahore, Pakistan. In three-plus years I've
-              shipped 40+ websites and web apps for clinics, agencies, law
-              firms, online stores and startups.
+              London, UK and Lahore, Pakistan. In three-plus years I've
+              shipped 40+ websites, web apps and custom builds for clinics,
+              agencies, law firms, online stores and startups.
             </p>
             <p>
-              I work across the MERN stack, WordPress and Shopify, and I treat
-              performance, SEO and design detail as part of the build — not an
-              add-on. The goal is simple: a site that wins you clients.
+              I work across the MERN stack, WordPress and Shopify, and I also
+              build SaaS products, custom software and AI chatbots. In every
+              project I treat performance, SEO and design detail as part of the
+              build — not an add-on. The goal is simple: something that wins
+              you clients.
             </p>
           </div>
         </div>
@@ -102,17 +106,11 @@ export default function About() {
               </ul>
             </Tilt>
           </div>
-          <div className="reveal bento-d">
-            <Tilt className="bento-card b-white" max={5}>
-              <CountUp to={4} />
-              <span className="bento-label">Countries served</span>
-            </Tilt>
-          </div>
           <div className="reveal bento-e">
             <Tilt className="bento-card b-sand" max={5}>
               <span className="bento-label">Based between</span>
               <span className="bento-place">
-                Romford, UK <i aria-hidden="true">↔</i> Lahore, PK
+                London, UK <i aria-hidden="true">↔</i> Lahore, PK
               </span>
             </Tilt>
           </div>

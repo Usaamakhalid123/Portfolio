@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom'
 import { projects } from '../data/projects'
-import ProjectCard from './ProjectCard'
+import WorkIndex from './WorkIndex'
 
-// Featured four shown on the homepage.
-const FEATURED = ['Khi Tam Health Hub', 'Pattern Labs', 'Base Health', 'Sama X']
+// Featured five shown on the homepage; the full list lives on /work.
+const FEATURED = [
+  'Khi Tam Health Hub',
+  'Pattern Labs',
+  'Base Health',
+  'Sama X',
+  'Shazoni Digital',
+]
 
 export default function WorkPreview() {
   const featured = FEATURED.map((t) =>
@@ -24,11 +30,7 @@ export default function WorkPreview() {
         </span>
       </div>
 
-      <div className="work2-grid">
-        {featured.map((p) => (
-          <ProjectCard key={p.url} p={p} />
-        ))}
-      </div>
+      <WorkIndex items={featured} />
 
       <div className="work-cta reveal">
         <Link to="/work" className="btn btn-primary" data-cursor>

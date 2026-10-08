@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import CustomCursor from './components/CustomCursor'
 import Loader from './components/Loader'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import WorkPage from './pages/WorkPage'
+import Privacy from './pages/Privacy'
+import NotFound from './pages/NotFound'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { useReveal } from './hooks/useReveal'
 import { useScrollManager } from './hooks/useScrollManager'
@@ -57,11 +59,16 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/work" element={<WorkPage />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
 
         <footer className="footer">
           <span>© {new Date().getFullYear()} Usama Khalid</span>
-          <span>Freelance web developer · Romford, UK &amp; Lahore, PK</span>
+          <span>Freelance web developer · London, UK &amp; Lahore, PK</span>
+          <Link to="/privacy" className="footer-link">
+            Privacy
+          </Link>
         </footer>
       </main>
     </>
