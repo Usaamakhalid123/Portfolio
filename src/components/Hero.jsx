@@ -1,6 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import TechStack from './TechStack'
+import SceneBoundary from './SceneBoundary'
+import { prefersReducedMotion } from '../hooks/reducedMotion'
+
+// The 3D scene (three.js) is split into its own chunk so text paints first.
+const HeroScene = lazy(() => import('../three/HeroScene'))
 
 const WORDS = ['clients.', 'revenue.', 'bookings.', 'growth.']
 
@@ -9,6 +13,7 @@ function Rotator() {
   const [i, setI] = useState(0)
 
   useEffect(() => {
+    if (prefersReducedMotion()) return // keep the first word, no cycling
     const id = setInterval(() => {
       gsap.to(el.current, {
         yPercent: -100,
@@ -30,9 +35,10 @@ function Rotator() {
 
   return (
     <span className="rotator-wrap">
-      <span className="rotator hero-accent" ref={el}>
+      <span className="rotator hero-accent" ref={el} aria-hidden="true">
         {WORDS[i]}
       </span>
+      <span className="visually-hidden">clients.</span>
     </span>
   )
 }
@@ -41,6 +47,7 @@ export default function Hero() {
   const root = useRef()
 
   useEffect(() => {
+    if (prefersReducedMotion()) return
     const ctx = gsap.context(() => {
       gsap.from('.hero-title .line span', {
         yPercent: 110,
@@ -88,10 +95,15 @@ export default function Hero() {
 
   return (
     <header className="hero" id="top" ref={root}>
-      <div className="hero-aurora" />
+      <div className="hero-glow" aria-hidden="true" />
+      <SceneBoundary>
+        <Suspense fallback={null}>
+          <HeroScene />
+        </Suspense>
+      </SceneBoundary>
       <div className="hero-content">
         <div className="hero-status">
-          <span className="status-dot" />
+          <span className="status-dot" aria-hidden="true" />
           Available for new projects
         </div>
 
@@ -122,8 +134,9 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="hero-visual">
-        <TechStack />
+      <div className="hero-scroll" aria-hidden="true">
+        <span>Scroll</span>
+        <i />
       </div>
     </header>
   )

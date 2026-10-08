@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { testimonials } from '../data/testimonials'
+import Tilt from './Tilt'
+import { prefersReducedMotion } from '../hooks/reducedMotion'
 
 const initials = (name) =>
   name
@@ -26,7 +28,10 @@ export default function Testimonials() {
   const pages = buildPages(testimonials)
   const count = pages.length
   const [page, setPage] = useState(0)
-  const [paused, setPaused] = useState(false)
+  const [hoverPaused, setHoverPaused] = useState(false)
+  // Users who ask for reduced motion never get auto-advance; others can stop it.
+  const [userPaused, setUserPaused] = useState(prefersReducedMotion)
+  const paused = hoverPaused || userPaused
 
   const go = (dir) => setPage((p) => (p + dir + count) % count)
 
@@ -49,37 +54,63 @@ export default function Testimonials() {
           <button onClick={() => go(-1)} aria-label="Previous testimonials">
             ←
           </button>
-          <span className="tcount">
+          <span className="tcount" aria-hidden="true">
             {String(page + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}
           </span>
           <button onClick={() => go(1)} aria-label="Next testimonials">
             →
+          </button>
+          <button
+            className="tpause"
+            onClick={() => setUserPaused((p) => !p)}
+            aria-label={
+              userPaused ? 'Start automatic rotation' : 'Pause automatic rotation'
+            }
+            aria-pressed={userPaused}
+          >
+            {userPaused ? '▶' : '❚❚'}
           </button>
         </div>
       </div>
 
       <div
         className="tcarousel reveal"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Client testimonials"
+        aria-live={paused ? 'polite' : 'off'}
+        onMouseEnter={() => setHoverPaused(true)}
+        onMouseLeave={() => setHoverPaused(false)}
+        onFocus={() => setHoverPaused(true)}
+        onBlur={() => setHoverPaused(false)}
       >
+        <p className="visually-hidden">
+          Showing page {page + 1} of {count}
+        </p>
         <div
           className="tcarousel-track"
           style={{ transform: `translateX(-${page * 100}%)` }}
         >
           {pages.map((pair, i) => (
-            <div className="tcarousel-slide" key={i}>
+            <div
+              className="tcarousel-slide"
+              key={i}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${count}`}
+              aria-hidden={i !== page}
+            >
               {pair.map((t, j) => (
-                <figure className="tcard" key={`${i}-${j}`}>
-                  <blockquote className="tquote">{t.quote}</blockquote>
-                  <figcaption className="tmeta">
+                <Tilt as="figure" className="tcard glass" max={4} key={`${i}-${j}`}>
+                  <blockquote className="tquote tilt-layer">{t.quote}</blockquote>
+                  <figcaption className="tmeta tilt-layer">
                     <span className="tavatar">{initials(t.name)}</span>
                     <span>
                       <span className="tname">{t.name}</span>
                       <span className="trole">{t.role}</span>
                     </span>
                   </figcaption>
-                </figure>
+                </Tilt>
               ))}
             </div>
           ))}

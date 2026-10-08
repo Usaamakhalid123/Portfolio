@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 const EMAIL = 'usamakhalid.work@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/usama-khalid-90a15b204'
@@ -29,7 +29,8 @@ const BUDGETS = [
 export default function Contact() {
   const [services, setServices] = useState([])
   const [touched, setTouched] = useState(false)
-  const [status, setStatus] = useState('idle') // idle | submitting | success | error
+  const [status, setStatus] = useState('idle') // idle | submitting | success | mailto | error
+  const firstChip = useRef()
 
   const toggleService = (s) =>
     setServices((prev) =>
@@ -40,6 +41,7 @@ export default function Contact() {
     e.preventDefault()
     if (services.length === 0) {
       setTouched(true)
+      firstChip.current?.focus()
       return
     }
     const form = e.currentTarget
@@ -63,7 +65,8 @@ export default function Contact() {
       const subject = encodeURIComponent(`New project enquiry — ${data.name}`)
       const body = encodeURIComponent(lines.join('\n'))
       window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
-      setStatus('success')
+      // We can't know the visitor actually sent it, so don't claim success.
+      setStatus('mailto')
       return
     }
 
@@ -114,11 +117,31 @@ export default function Contact() {
 
         <form className="contact-form reveal" onSubmit={onSubmit}>
           {status === 'success' ? (
-            <div className="form-success">
-              <h3>Thank you! 🎉</h3>
+            <div className="form-success" role="status">
+              <h3>Thank you!</h3>
               <p>
                 Your message is on its way — I'll be in touch within 24 hours.
               </p>
+            </div>
+          ) : status === 'mailto' ? (
+            <div className="form-success" role="status">
+              <h3>Almost there</h3>
+              <p>
+                Your email app should have opened with your message ready —
+                just press send. If nothing opened, email me directly at{' '}
+                <a href={`mailto:${EMAIL}`} className="hero-accent">
+                  {EMAIL}
+                </a>
+                .
+              </p>
+              <button
+                type="button"
+                className="btn btn-ghost"
+                style={{ marginTop: '1.2rem' }}
+                onClick={() => setStatus('idle')}
+              >
+                Back to the form
+              </button>
             </div>
           ) : (
             <>
@@ -127,19 +150,27 @@ export default function Contact() {
                 name="_gotcha"
                 tabIndex="-1"
                 autoComplete="off"
+                aria-hidden="true"
                 style={{ display: 'none' }}
               />
 
               <div className="form-row">
                 <label className="field">
                   <span>Name *</span>
-                  <input name="name" type="text" required placeholder="Jane Doe" />
+                  <input
+                    name="name"
+                    type="text"
+                    required
+                    autoComplete="name"
+                    placeholder="Jane Doe"
+                  />
                 </label>
                 <label className="field">
                   <span>Email *</span>
                   <input
                     name="email"
                     type="email"
+                    autoComplete="email"
                     required
                     placeholder="jane@company.com"
                   />
@@ -149,11 +180,21 @@ export default function Contact() {
               <div className="form-row">
                 <label className="field">
                   <span>Company</span>
-                  <input name="company" type="text" placeholder="Company name" />
+                  <input
+                    name="company"
+                    type="text"
+                    autoComplete="organization"
+                    placeholder="Company name"
+                  />
                 </label>
                 <label className="field">
                   <span>Website (if any)</span>
-                  <input name="website" type="url" placeholder="https://" />
+                  <input
+                    name="website"
+                    type="url"
+                    autoComplete="url"
+                    placeholder="https://"
+                  />
                 </label>
               </div>
 
@@ -163,6 +204,7 @@ export default function Contact() {
                   <input
                     name="country"
                     type="text"
+                    autoComplete="country-name"
                     placeholder="United Kingdom"
                   />
                 </label>
@@ -181,14 +223,21 @@ export default function Contact() {
                 </label>
               </div>
 
-              <div className="field">
-                <span>What do you need? *</span>
+              <fieldset
+                className="field field-group"
+                aria-describedby={
+                  touched && services.length === 0 ? 'services-error' : undefined
+                }
+              >
+                <legend>What do you need? *</legend>
                 <div className="chips">
-                  {SERVICES.map((s) => (
+                  {SERVICES.map((s, idx) => (
                     <button
                       type="button"
                       key={s}
+                      ref={idx === 0 ? firstChip : undefined}
                       className={`chip ${services.includes(s) ? 'active' : ''}`}
+                      aria-pressed={services.includes(s)}
                       onClick={() => toggleService(s)}
                     >
                       {s}
@@ -196,9 +245,11 @@ export default function Contact() {
                   ))}
                 </div>
                 {touched && services.length === 0 && (
-                  <span className="form-hint">Please pick at least one.</span>
+                  <span className="form-hint" id="services-error" role="alert">
+                    Please pick at least one service.
+                  </span>
                 )}
-              </div>
+              </fieldset>
 
               <label className="field">
                 <span>Project details *</span>
@@ -219,7 +270,7 @@ export default function Contact() {
               </button>
 
               {status === 'error' && (
-                <p className="form-error">
+                <p className="form-error" role="alert">
                   Something went wrong — please email me directly at {EMAIL}.
                 </p>
               )}

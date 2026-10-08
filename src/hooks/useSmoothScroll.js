@@ -3,12 +3,14 @@ import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import { prefersReducedMotion } from './reducedMotion'
+
 gsap.registerPlugin(ScrollTrigger)
 
 // Lenis smooth scrolling synced with GSAP ScrollTrigger.
 export function useSmoothScroll(enabled = true) {
   useEffect(() => {
-    if (!enabled) return
+    if (!enabled || prefersReducedMotion()) return
 
     const lenis = new Lenis({
       duration: 1.1,

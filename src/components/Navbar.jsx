@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 const ITEMS = [
@@ -11,22 +11,65 @@ const ITEMS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+  const toggleRef = useRef()
+  const menuRef = useRef()
 
   // Close the mobile menu whenever the route/hash changes.
   useEffect(() => setOpen(false), [location])
 
-  // Lock background scroll while the menu is open.
+  // Give the fixed nav a backdrop once the page has scrolled.
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // While the menu is open: lock scroll, close on Escape, trap Tab inside it,
+  // and hand focus back to the toggle when it closes.
+  useEffect(() => {
+    if (!open) return
+    document.body.style.overflow = 'hidden'
+
+    const focusables = () => [
+      toggleRef.current,
+      ...menuRef.current.querySelectorAll('a'),
+    ]
+    focusables()[1]?.focus()
+
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        toggleRef.current?.focus()
+        return
+      }
+      if (e.key !== 'Tab') return
+      const els = focusables()
+      const first = els[0]
+      const last = els[els.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = ''
+      document.removeEventListener('keydown', onKey)
     }
   }, [open])
 
   return (
     <>
-      <nav className="nav">
+      <nav
+        className={`nav ${scrolled ? 'scrolled' : ''}`}
+        aria-label="Main"
+      >
         <Link to="/" className="nav-logo">
           Usama<span style={{ color: 'var(--accent)' }}>.</span>
         </Link>
@@ -40,9 +83,11 @@ export default function Navbar() {
         </div>
 
         <button
+          ref={toggleRef}
           className={`nav-toggle ${open ? 'open' : ''}`}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
+          aria-controls="mobile-menu"
           onClick={() => setOpen((o) => !o)}
         >
           <span />
@@ -50,7 +95,11 @@ export default function Navbar() {
         </button>
       </nav>
 
-      <div className={`nav-mobile ${open ? 'open' : ''}`}>
+      <div
+        id="mobile-menu"
+        ref={menuRef}
+        className={`nav-mobile ${open ? 'open' : ''}`}
+      >
         <div className="nav-mobile-links">
           {ITEMS.map((i) => (
             <Link key={i.to} to={i.to} onClick={() => setOpen(false)}>

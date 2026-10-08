@@ -31,7 +31,7 @@ export default function Loader({ onDone }) {
   }, [onDone])
 
   return (
-    <div className="loader" ref={root}>
+    <div className="loader" ref={root} role="status" aria-label="Loading">
       <div className="loader-count">{count}</div>
       <div className="loader-bar">
         <span ref={bar} />

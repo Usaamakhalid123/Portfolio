@@ -2,13 +2,15 @@ import { useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import { prefersReducedMotion } from './reducedMotion'
+
 gsap.registerPlugin(ScrollTrigger)
 
 // Animates every `.reveal` element into view. Re-runs whenever `key` changes
 // (e.g. on route change) so each page's elements get wired up.
 export function useReveal(ready, key) {
   useEffect(() => {
-    if (!ready) return
+    if (!ready || prefersReducedMotion()) return // CSS shows .reveal as-is
     let ctx
     const id = requestAnimationFrame(() => {
       ctx = gsap.context(() => {

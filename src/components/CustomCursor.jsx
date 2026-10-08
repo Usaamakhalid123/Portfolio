@@ -13,6 +13,10 @@ export default function CustomCursor() {
     const onMove = (e) => {
       pos.x = e.clientX
       pos.y = e.clientY
+      // Feeds the soft page glow that follows the pointer (see body::before).
+      const root = document.documentElement.style
+      root.setProperty('--px', `${(e.clientX / window.innerWidth) * 100}%`)
+      root.setProperty('--py', `${(e.clientY / window.innerHeight) * 100}%`)
       if (dot.current) {
         dot.current.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)`
       }
@@ -28,17 +32,24 @@ export default function CustomCursor() {
     }
     loop()
 
-    const setHover = (v) => () =>
-      ring.current && ring.current.classList.toggle('hovered', v)
-    const targets = document.querySelectorAll('a, button, [data-cursor]')
-    targets.forEach((t) => {
-      t.addEventListener('mouseenter', setHover(true))
-      t.addEventListener('mouseleave', setHover(false))
-    })
+    // Delegated, so elements on routes rendered later still get the hover ring.
+    const SELECTOR = 'a, button, [data-cursor]'
+    const onOver = (e) => {
+      if (ring.current && e.target.closest?.(SELECTOR))
+        ring.current.classList.add('hovered')
+    }
+    const onOut = (e) => {
+      if (ring.current && e.target.closest?.(SELECTOR))
+        ring.current.classList.remove('hovered')
+    }
 
     window.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseover', onOver)
+    document.addEventListener('mouseout', onOut)
     return () => {
       window.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseover', onOver)
+      document.removeEventListener('mouseout', onOut)
       cancelAnimationFrame(raf)
     }
   }, [])
