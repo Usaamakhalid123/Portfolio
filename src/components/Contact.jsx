@@ -5,10 +5,9 @@ const LINKEDIN = 'https://www.linkedin.com/in/usama-khalid-90a15b204'
 const GITHUB = 'https://github.com/Usaamakhalid123'
 const LINKTREE = 'https://linktr.ee/chusama32'
 
-// TODO(usama): create a free form at https://formspree.io and paste its endpoint
-// here (looks like https://formspree.io/f/abcdwxyz). Until then, the form falls
-// back to opening the visitor's email app addressed to you.
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'
+// Enquiries are delivered by Formspree. If the endpoint is ever reset to the
+// YOUR_FORM_ID placeholder, the form falls back to the visitor's email app.
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeaegrza'
 
 const SERVICES = [
   'Web Design',
@@ -54,10 +53,7 @@ export default function Contact() {
       const lines = [
         `Name: ${data.name}`,
         `Email: ${data.email}`,
-        `Company: ${data.company || '-'}`,
-        `Website: ${data.website || '-'}`,
-        `Country: ${data.country || '-'}`,
-        `Budget: ${data.budget || '-'}`,
+        `Budget: ${data.budget || 'To discuss'}`,
         `Services: ${data.services}`,
         '',
         data.message,
@@ -177,52 +173,6 @@ export default function Contact() {
                 </label>
               </div>
 
-              <div className="form-row">
-                <label className="field">
-                  <span>Company</span>
-                  <input
-                    name="company"
-                    type="text"
-                    autoComplete="organization"
-                    placeholder="Company name"
-                  />
-                </label>
-                <label className="field">
-                  <span>Website (if any)</span>
-                  <input
-                    name="website"
-                    type="url"
-                    autoComplete="url"
-                    placeholder="https://"
-                  />
-                </label>
-              </div>
-
-              <div className="form-row">
-                <label className="field">
-                  <span>Country</span>
-                  <input
-                    name="country"
-                    type="text"
-                    autoComplete="country-name"
-                    placeholder="United Kingdom"
-                  />
-                </label>
-                <label className="field">
-                  <span>Budget range</span>
-                  <select name="budget" defaultValue="">
-                    <option value="" disabled>
-                      Choose a range
-                    </option>
-                    {BUDGETS.map((b) => (
-                      <option key={b} value={b}>
-                        {b}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-
               <fieldset
                 className="field field-group"
                 aria-describedby={
@@ -252,6 +202,18 @@ export default function Contact() {
               </fieldset>
 
               <label className="field">
+                <span>Budget (optional)</span>
+                <select name="budget" defaultValue="">
+                  <option value="">Prefer to discuss</option>
+                  {BUDGETS.map((b) => (
+                    <option key={b} value={b}>
+                      {b}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="field">
                 <span>Project details *</span>
                 <textarea
                   name="message"
@@ -268,6 +230,7 @@ export default function Contact() {
               >
                 {status === 'submitting' ? 'Sending…' : 'Send my enquiry →'}
               </button>
+              <p className="form-note">Takes under a minute. I reply within 24 hours.</p>
 
               {status === 'error' && (
                 <p className="form-error" role="alert">

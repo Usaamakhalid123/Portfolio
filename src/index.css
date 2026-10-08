@@ -1299,6 +1299,11 @@ h3 {
   color: #ff8f84;
   margin-top: 0.8rem;
 }
+.form-note {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.9rem;
+}
 .form-success {
   text-align: center;
   padding: 2.5rem 1rem;
