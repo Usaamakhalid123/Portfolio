@@ -45,9 +45,9 @@ export default function Testimonials() {
     <section className="section testimonials" id="testimonials">
       <div className="section-head">
         <div>
-          <span className="eyebrow reveal">Kind Words</span>
+          <span className="eyebrow reveal">Client reviews</span>
           <h2 className="reveal" style={{ marginTop: '1rem' }}>
-            What clients say.
+            Don't take my word for it.
           </h2>
         </div>
         <div className="tnav reveal">

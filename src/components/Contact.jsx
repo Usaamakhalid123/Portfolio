@@ -87,14 +87,14 @@ export default function Contact() {
     <section className="section contact" id="contact">
       <div className="contact-grid">
         <div className="contact-intro">
-          <span className="eyebrow reveal">Say hello</span>
+          <span className="eyebrow reveal">Let’s talk</span>
           <h2 className="reveal">
-            Let's make something worth{' '}
-            <span className="hero-accent">bookmarking.</span>
+            Have a project in mind?{' '}
+            <span className="hero-accent">Let’s build it.</span>
           </h2>
           <p className="reveal contact-lead">
-            Tell me a little about your project and I'll get back to you within
-            24 hours.
+            Tell me about your goals and timeline. I reply within 24 hours
+            with clear next steps.
           </p>
           <div className="contact-details reveal">
             <a href={`mailto:${EMAIL}`} data-cursor>
@@ -118,17 +118,17 @@ export default function Contact() {
         <form className="contact-form reveal" onSubmit={onSubmit}>
           {status === 'success' ? (
             <div className="form-success" role="status">
-              <h3>Thank you!</h3>
+              <h3>Thanks — it’s with me.</h3>
               <p>
-                Your message is on its way — I'll be in touch within 24 hours.
+                I’ve got your enquiry and will reply within 24 hours.
               </p>
             </div>
           ) : status === 'mailto' ? (
             <div className="form-success" role="status">
-              <h3>Almost there</h3>
+              <h3>One last step</h3>
               <p>
-                Your email app should have opened with your message ready —
-                just press send. If nothing opened, email me directly at{' '}
+                Your email app should have opened with your enquiry ready —
+                press send to finish. If nothing opened, email me at{' '}
                 <a href={`mailto:${EMAIL}`} className="hero-accent">
                   {EMAIL}
                 </a>
@@ -209,10 +209,10 @@ export default function Contact() {
                   />
                 </label>
                 <label className="field">
-                  <span>Budget</span>
+                  <span>Budget range</span>
                   <select name="budget" defaultValue="">
                     <option value="" disabled>
-                      Select a range
+                      Choose a range
                     </option>
                     {BUDGETS.map((b) => (
                       <option key={b} value={b}>
@@ -229,7 +229,7 @@ export default function Contact() {
                   touched && services.length === 0 ? 'services-error' : undefined
                 }
               >
-                <legend>What do you need? *</legend>
+                <legend>What do you need help with? *</legend>
                 <div className="chips">
                   {SERVICES.map((s, idx) => (
                     <button
@@ -246,7 +246,7 @@ export default function Contact() {
                 </div>
                 {touched && services.length === 0 && (
                   <span className="form-hint" id="services-error" role="alert">
-                    Please pick at least one service.
+                    Choose at least one service so I know where to start.
                   </span>
                 )}
               </fieldset>
@@ -257,7 +257,7 @@ export default function Contact() {
                   name="message"
                   rows="4"
                   required
-                  placeholder="Tell me about your project, goals and timeline…"
+                  placeholder="What are you building, what should it achieve, and when do you need it?"
                 />
               </label>
 
@@ -266,12 +266,12 @@ export default function Contact() {
                 type="submit"
                 disabled={status === 'submitting'}
               >
-                {status === 'submitting' ? 'Sending…' : 'Send message →'}
+                {status === 'submitting' ? 'Sending…' : 'Send my enquiry →'}
               </button>
 
               {status === 'error' && (
                 <p className="form-error" role="alert">
-                  Something went wrong — please email me directly at {EMAIL}.
+                  That didn’t go through. Please email me directly at {EMAIL} and I’ll reply within 24 hours.
                 </p>
               )}
             </>

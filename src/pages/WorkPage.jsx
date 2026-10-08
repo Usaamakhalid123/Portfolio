@@ -7,11 +7,11 @@ export default function WorkPage() {
     <section className="section work2 page" id="work">
       <div className="page-head">
         <span className="eyebrow reveal">All Work</span>
-        <h1 className="reveal">{projects.length} sites, shipped &amp; live.</h1>
+        <h1 className="reveal">{projects.length} sites, built &amp; live.</h1>
         <p className="reveal page-sub">
-          A complete look at the websites and web apps I've built for clients
-          across the UK, UAE, Pakistan and Australia — from clinics and law firms
-          to e-commerce and SaaS.
+          Websites and web apps for clinics, law firms, e-commerce brands and
+          software teams across the UK, UAE, Pakistan and Australia. Every one
+          is live — click through and see for yourself.
         </p>
       </div>
 

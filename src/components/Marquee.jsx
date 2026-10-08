@@ -1,11 +1,11 @@
 const items = [
-  'Web Apps',
+  'Custom Web Apps',
   'WordPress',
   'Shopify',
   'MERN Stack',
-  'SEO',
-  'Performance',
-  'UI / UX',
+  'Technical SEO',
+  'Core Web Vitals',
+  'UI & UX Design',
   'E-commerce',
 ]
 

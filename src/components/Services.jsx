@@ -20,7 +20,7 @@ const Icon = ({ children }) => (
 const services = [
   {
     title: 'Custom Web Apps',
-    desc: 'Full-stack MERN applications, dashboards and platforms.',
+    desc: 'Full-stack MERN apps, dashboards and client portals — built to scale and easy to maintain.',
     icon: (
       <Icon>
         <path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14" />
@@ -29,7 +29,7 @@ const services = [
   },
   {
     title: 'WordPress',
-    desc: 'Bespoke themes, plugins and fast marketing sites.',
+    desc: 'Bespoke themes and plugins, with editing that’s simple for your team and pages that load fast.',
     icon: (
       <Icon>
         <rect x="3" y="4" width="18" height="16" rx="2.5" />
@@ -39,7 +39,7 @@ const services = [
   },
   {
     title: 'Shopify & E-commerce',
-    desc: 'Conversion-focused stores with custom checkout flows.',
+    desc: 'Stores designed to convert, with custom checkout flows and product pages that sell.',
     icon: (
       <Icon>
         <path d="M5 8h14l-1 12H6L5 8Z" />
@@ -49,7 +49,7 @@ const services = [
   },
   {
     title: 'SEO & Performance',
-    desc: 'Core Web Vitals, technical SEO and speed optimization.',
+    desc: 'Core Web Vitals, technical SEO and speed work, so you rank higher and lose fewer visitors.',
     icon: (
       <Icon>
         <path d="M4 17a8 8 0 1 1 16 0" />
@@ -66,7 +66,7 @@ export default function Services() {
       <div className="section-head">
         <div>
           <span className="eyebrow reveal">Services</span>
-          <h2 className="reveal">What I build</h2>
+          <h2 className="reveal">How I can help</h2>
         </div>
       </div>
 

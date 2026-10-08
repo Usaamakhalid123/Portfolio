@@ -5,7 +5,7 @@ const ITEMS = [
   { to: '/work', label: 'Work' },
   { to: '/#about', label: 'About' },
   { to: '/#services', label: 'Services' },
-  { to: '/#testimonials', label: 'Testimonials' },
+  { to: '/#testimonials', label: 'Reviews' },
   { to: '/#contact', label: 'Contact' },
 ]
 

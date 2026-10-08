@@ -119,9 +119,9 @@ export default function Hero() {
         </h1>
 
         <p className="hero-sub">
-          I'm Usama — I design and build websites that make small businesses
-          look like the big ones, and turn quiet pages into booked calendars.
-          40+ shipped across four countries, and counting.
+          I'm Usama, a freelance full-stack developer. I build fast,
+          search-ready websites for clinics, law firms, agencies and online
+          stores — 40+ delivered across the UK, UAE, Pakistan and Australia.
         </p>
 
         <div className="hero-ctas">
@@ -129,7 +129,7 @@ export default function Hero() {
             Start a project
           </a>
           <a className="btn btn-ghost" href="#work">
-            View work →
+            See selected work →
           </a>
         </div>
       </div>

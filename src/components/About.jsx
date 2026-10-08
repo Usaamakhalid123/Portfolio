@@ -56,21 +56,20 @@ export default function About() {
       <div className="about-grid">
         <div>
           <p className="about-lead reveal">
-            I help businesses look <em>credible</em>, load <em>fast</em> and
-            convert <em>more</em> — turning ideas into polished,
-            high-performing web experiences.
+            I build websites that look <em>credible</em>, load <em>fast</em>{' '}
+            and bring in <em>more clients</em>.
           </p>
           <div className="about-body reveal">
             <p>
-              I'm Usama Khalid, a freelance full-stack developer based between
-              Romford, UK and Lahore, Pakistan. Over 3+ years I've delivered
-              40+ websites and custom web apps for clinics, agencies, law
-              firms, e-commerce brands and startups.
+              I'm Usama Khalid, a freelance full-stack developer split between
+              Romford, UK and Lahore, Pakistan. In three-plus years I've
+              shipped 40+ websites and web apps for clinics, agencies, law
+              firms, online stores and startups.
             </p>
             <p>
-              My stack spans the MERN ecosystem, WordPress and Shopify — paired
-              with a sharp focus on performance, SEO and design detail. The
-              result: sites that don't just look good, but win clients.
+              I work across the MERN stack, WordPress and Shopify, and I treat
+              performance, SEO and design detail as part of the build — not an
+              add-on. The goal is simple: a site that wins you clients.
             </p>
           </div>
         </div>

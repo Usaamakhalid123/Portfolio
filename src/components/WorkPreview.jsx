@@ -16,11 +16,11 @@ export default function WorkPreview() {
         <div>
           <span className="eyebrow reveal">Selected Work</span>
           <h2 className="reveal" style={{ marginTop: '1rem' }}>
-            Recent work I'm proud of.
+            Real clients. Live sites.
           </h2>
         </div>
         <span className="section-count reveal">
-          {projects.length} projects total
+          {projects.length} live projects
         </span>
       </div>
 

@@ -61,7 +61,7 @@ export default function App() {
 
         <footer className="footer">
           <span>© {new Date().getFullYear()} Usama Khalid</span>
-          <span>Designed &amp; built by Usama Khalid</span>
+          <span>Freelance web developer · Romford, UK &amp; Lahore, PK</span>
         </footer>
       </main>
     </>
