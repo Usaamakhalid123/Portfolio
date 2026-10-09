@@ -1166,12 +1166,20 @@ h3 {
   row-gap: 1.1rem;
   padding-block: 1.6rem;
 }
+/* Phones: the row number is hidden, so the grid is title + arrow only.
+   Must match the specificity of the touch rule above or it never applies
+   (that mismatch put the title in the 2.4rem number column on iOS). */
 @media (max-width: 640px) {
-  .wrow {
+  .wrow,
+  .windex:not(.has-preview) .wrow {
     grid-template-columns: 1fr auto;
   }
   .wrow-num {
     display: none;
+  }
+  .wrow-title {
+    font-size: clamp(1.9rem, 9vw, 2.6rem);
+    overflow-wrap: break-word;
   }
 }
 .work-cta {
