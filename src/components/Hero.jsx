@@ -6,9 +6,9 @@ const WORDS = ['clients.', 'revenue.', 'bookings.', 'growth.']
 
 // Real client sites shown as a floating 3D browser stack.
 const MOCKS = [
-  { cls: 'm1', url: 'thepatternlabs.com', img: '/shots/patternlabs.webp' },
-  { cls: 'm2', url: 'basehealth.co.uk', img: '/shots/basehealth.webp' },
-  { cls: 'm3', url: 'khitamhealthhub.com', img: '/shots/khitam.webp' },
+  { cls: 'm1', url: 'thepatternlabs.com', img: '/shots/patternlabs' },
+  { cls: 'm2', url: 'basehealth.co.uk', img: '/shots/basehealth' },
+  { cls: 'm3', url: 'khitamhealthhub.com', img: '/shots/khitam' },
 ]
 
 function Rotator() {
@@ -55,26 +55,23 @@ export default function Hero() {
     const ctx = gsap.context(() => {
       gsap.from('.hero-title .line span', {
         yPercent: 110,
-        duration: 1.2,
+        duration: 0.9,
         ease: 'power4.out',
-        stagger: 0.1,
-        delay: 0.15,
+        stagger: 0.08,
       })
+      // Transform-only entrances: the text and images that make up the Largest
+      // Contentful Paint are painted immediately instead of waiting on a fade.
       gsap.from(['.hero-status', '.hero-sub', '.hero-ctas'], {
-        opacity: 0,
-        y: 22,
-        duration: 1,
+        y: 18,
+        duration: 0.9,
         ease: 'power3.out',
-        delay: 0.6,
-        stagger: 0.12,
+        stagger: 0.08,
       })
       gsap.from('.mock', {
-        opacity: 0,
-        y: 70,
-        duration: 1.4,
+        y: 48,
+        duration: 1.1,
         ease: 'expo.out',
-        stagger: 0.14,
-        delay: 0.35,
+        stagger: 0.1,
       })
       gsap.from('.hero-sticker', {
         scale: 0,
@@ -176,7 +173,14 @@ export default function Hero() {
                 <i />
                 <span>{m.url}</span>
               </div>
-              <img src={m.img} alt="" loading="eager" />
+              <img
+                src={`${m.img}.webp`}
+                srcSet={`${m.img}-640.webp 640w, ${m.img}.webp 1200w`}
+                sizes="(max-width: 900px) 78vw, 40vw"
+                width="1200"
+                height="750"
+                alt=""
+              />
             </figure>
           ))}
         </div>

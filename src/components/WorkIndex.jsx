@@ -28,6 +28,10 @@ export default function WorkIndex({ items }) {
   const preview = useRef()
   const [active, setActive] = useState(null)
   const [enabled] = useState(canFollowCursor)
+  // Preview images are fetched only once the visitor engages with the list,
+  // so they don't compete with first paint (the fixed preview is technically
+  // "in view" while invisible, which would otherwise make lazy-loading moot).
+  const [armed, setArmed] = useState(false)
   const activeRef = useRef(null)
   const m = useRef({
     tx: 0, ty: 0, // target position (viewport px)
@@ -191,6 +195,8 @@ export default function WorkIndex({ items }) {
         active !== null ? 'is-hovering' : ''
       }`}
       ref={root}
+      onPointerEnter={() => setArmed(true)}
+      onFocus={() => setArmed(true)}
     >
       <ul className="windex-list">
         {items.map((p, i) => (
@@ -221,9 +227,12 @@ export default function WorkIndex({ items }) {
               <img
                 className="wrow-thumb"
                 src={p.image}
+                srcSet={`${p.image.replace('.webp', '-640.webp')} 640w, ${p.image} 1200w`}
+                sizes="(max-width: 700px) calc(100vw - 2.5rem), 700px"
                 alt={`${p.title} website screenshot`}
                 loading="lazy"
-                width="1000"
+                decoding="async"
+                width="1200"
                 height="750"
               />
               <span className="visually-hidden">(opens in a new tab)</span>
@@ -248,7 +257,7 @@ export default function WorkIndex({ items }) {
             {items.map((p, i) => (
               <img
                 key={p.url}
-                src={p.image}
+                src={armed ? p.image : undefined}
                 alt=""
                 className={active === i ? 'show' : ''}
                 decoding="async"

@@ -159,8 +159,7 @@ a {
   inset: 0;
   z-index: 9998;
   pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: multiply;
+  opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -270,10 +269,10 @@ h3 {
   transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));
   transform-style: preserve-3d;
   transition: transform 0.9s var(--ease);
-  will-change: transform;
 }
 .tilt.is-tilting {
   transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
 }
 .tilt::after {
   content: '';
@@ -331,8 +330,10 @@ h3 {
 .loader-bar span {
   display: block;
   height: 100%;
-  width: 0%;
+  width: 100%;
   background: var(--lime);
+  transform: scaleX(0);
+  transform-origin: left;
 }
 
 /* ---------- Navbar ---------- */
@@ -574,8 +575,7 @@ h3 {
   top: 50%;
   transform: translateY(-48%);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(198, 255, 61, 0.75), transparent 68%);
-  filter: blur(40px);
+  background: radial-gradient(circle, rgba(198, 255, 61, 0.7), transparent 68%);
   pointer-events: none;
 }
 .hero-content {

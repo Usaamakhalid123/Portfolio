@@ -6,7 +6,7 @@
 //   plausibleDomain the domain registered in Plausible, e.g. 'usamakhalid.com'
 //                   -> loads cookie-free analytics (no consent banner needed)
 export default {
-  url: '',
+  url: 'https://usama-khalid.vercel.app',
   whatsapp: '',
   plausibleDomain: '',
 }
